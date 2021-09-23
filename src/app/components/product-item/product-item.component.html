@@ -1,9 +1,9 @@
 <div class="card text-center mb-3">
-  <img src="https://m.media-amazon.com/images/I/81Tf5V4xgpL._AC_UY218_.jpg" class="card-img-top">
+  <img [src]="product.imageurl" class="card-img-top">
   <div class="card-body">
-    <h5 class="card-title">Title</h5>
-    <p class="card-text">Description</p>
-    <p class="card-text">Price</p>
+    <h5 class="card-title">{{product.name}}</h5>
+    <p class="card-text">{{product.description}}</p>
+    <p class="card-text">$ {{product.price}}</p>
     <button href="#" class="btn btn-outline-success">
       <i class="fas fa-cart-plus"></i>
       Add to Cart
