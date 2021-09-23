@@ -10,11 +10,13 @@ import { CartItem } from '../../models/cart-item';
 })
 export class CartComponent implements OnInit {
   cartItems: CartItem[] = [];
+  total: number = 0;
 
   constructor(private messageService: MessageService) {}
 
   ngOnInit(): void {
     this.getItem();
+    this.total = this.getTotal();
   }
 
   getItem(): void {
@@ -30,6 +32,25 @@ export class CartComponent implements OnInit {
         const carItem = new CartItem(product);
         this.cartItems.push(carItem);
       }
+      this.total = this.getTotal();
     });
+  }
+
+  getTotal(): number {
+    let total = 0;
+    this.cartItems.forEach((item) => (total += item.qty * item.productPrice));
+    return +total.toFixed(2);
+  }
+
+  emptyCart(): void {
+    this.cartItems = [];
+    this.total = 0;
+  }
+
+  deleteItem(index: number): void {
+    this.cartItems[index].qty > 1
+      ? this.cartItems[index].qty--
+      : this.cartItems.splice(index, 1);
+    this.total = this.getTotal();
   }
 }
