@@ -3,7 +3,11 @@ import { MessageService } from '../../services/message.service';
 import { Product } from '../../models/product';
 import { CartItem } from '../../models/cart-item';
 import { StorageService } from '../../services/storage.service';
-import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
+import {
+  ICreateOrderRequest,
+  IPayPalConfig,
+  ITransactionItem,
+} from 'ngx-paypal';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -80,25 +84,15 @@ export class CartComponent implements OnInit {
             {
               amount: {
                 currency_code: 'MXN',
-                value: '9.99',
+                value: this.getTotal.toString(),
                 breakdown: {
                   item_total: {
                     currency_code: 'MXN',
-                    value: '9.99',
+                    value: this.getTotal.toString(),
                   },
                 },
               },
-              items: [
-                {
-                  name: 'Enterprise Subscription',
-                  quantity: '1',
-                  category: 'DIGITAL_GOODS',
-                  unit_amount: {
-                    currency_code: 'MXN',
-                    value: '9.99',
-                  },
-                },
-              ],
+              items: this.getItemsPaypal(),
             },
           ],
         },
@@ -138,5 +132,24 @@ export class CartComponent implements OnInit {
         console.log('onClick', data, actions);
       },
     };
+  }
+
+  private getItemsPaypal(): ITransactionItem[] {
+    const items: ITransactionItem[] = [];
+    let item: ITransactionItem;
+
+    this.cartItems.forEach((i: CartItem) => {
+      item = {
+        name: i.productName,
+        quantity: i.qty.toString(),
+        unit_amount: {
+          value: i.productPrice.toString(),
+          currency_code: 'MXN',
+        },
+      };
+      items.push(item);
+    });
+
+    return items;
   }
 }
