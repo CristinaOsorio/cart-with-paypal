@@ -15,7 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 // External Packege
 import { NgxPayPalModule } from 'ngx-paypal';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgxSpinner } from 'ngx-spinner';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,7 @@ import { NgxSpinner } from 'ngx-spinner';
     NgxPayPalModule,
     NgbModule,
     AppRoutingModule,
-    NgxSpinner,
+    NgxSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
