@@ -1,9 +1,9 @@
-<ng-container *ngIf="cartItems.length < 1 ; else elseTemplate">
+<ng-container *ngIf="cartItems.length < 1 ; else showCart">
   <div class="alert alert-info text-center" role="alert">
     <h4>Your Cart is Empty</h4>
   </div>
 </ng-container>
-<ng-template #elseTemplate>
+<ng-template #showCart>
   <div class="alert alert-info text-center" role="alert">
     <h4>Your Cart</h4>
   </div>
@@ -27,5 +27,7 @@
   <button class="btn btn-outline-danger btn-block" (click)="emptyCart()">
     <i class="fas fa-ban"></i> Empty Cart
   </button>
+
+  <ngx-paypal [config]="payPalConfig"></ngx-paypal>
 
 </ng-template>
