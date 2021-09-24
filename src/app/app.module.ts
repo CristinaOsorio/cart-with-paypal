@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -12,6 +12,11 @@ import { CartItemComponent } from './components/cart-item/cart-item.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { AppRoutingModule } from './app-routing.module';
 
+// External Packege
+import { NgxPayPalModule } from 'ngx-paypal';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSpinner } from 'ngx-spinner';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,8 +29,15 @@ import { AppRoutingModule } from './app-routing.module';
     CartItemComponent,
     ModalComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [
+    BrowserModule,
+    NgxPayPalModule,
+    NgbModule,
+    AppRoutingModule,
+    NgxSpinner,
+  ],
   providers: [],
   bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}
