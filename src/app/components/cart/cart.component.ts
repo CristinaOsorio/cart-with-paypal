@@ -4,11 +4,15 @@ import { Product } from '../../models/product';
 import { CartItem } from '../../models/cart-item';
 import { StorageService } from '../../services/storage.service';
 import {
+  IClientAuthorizeCallbackData,
   ICreateOrderRequest,
   IPayPalConfig,
   ITransactionItem,
 } from 'ngx-paypal';
 import { environment } from '../../../environments/environment';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from '../modal/modal.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-cart',
@@ -23,7 +27,9 @@ export class CartComponent implements OnInit {
 
   constructor(
     private messageService: MessageService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private modalService: NgbModal,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
@@ -84,11 +90,11 @@ export class CartComponent implements OnInit {
             {
               amount: {
                 currency_code: 'MXN',
-                value: this.getTotal.toString(),
+                value: this.getTotal().toString(),
                 breakdown: {
                   item_total: {
                     currency_code: 'MXN',
-                    value: this.getTotal.toString(),
+                    value: this.getTotal().toString(),
                   },
                 },
               },
@@ -104,6 +110,7 @@ export class CartComponent implements OnInit {
         layout: 'vertical',
       },
       onApprove: (data, actions) => {
+        this.spinner.show();
         console.log(
           'onApprove - transaction was approved, but not authorized',
           data,
@@ -116,16 +123,24 @@ export class CartComponent implements OnInit {
           );
         });
       },
-      onClientAuthorization: (data) => {
+      onClientAuthorization: (data: IClientAuthorizeCallbackData) => {
+        this.spinner.hide();
         console.log(
           'onClientAuthorization - you should probably inform your server about completed transaction at this point',
           data
         );
+        this.openModal(
+          data.purchase_units[0].items,
+          data.purchase_units[0].amount.value
+        );
+        this.emptyCart();
       },
       onCancel: (data, actions) => {
+        this.spinner.hide();
         console.log('OnCancel', data, actions);
       },
       onError: (err) => {
+        this.spinner.hide();
         console.log('OnError', err);
       },
       onClick: (data, actions) => {
@@ -149,7 +164,15 @@ export class CartComponent implements OnInit {
       };
       items.push(item);
     });
+    console.log(items);
+    console.log(this.getTotal().toString());
 
     return items;
+  }
+
+  private openModal(items: ITransactionItem[], amount): void {
+    const modalRef = this.modalService.open(ModalComponent);
+    modalRef.componentInstance.items = items;
+    modalRef.componentInstance.amount = amount;
   }
 }

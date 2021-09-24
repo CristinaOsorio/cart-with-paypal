@@ -11,6 +11,7 @@ import { CartComponent } from './components/cart/cart.component';
 import { CartItemComponent } from './components/cart-item/cart-item.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // External Packege
 import { NgxPayPalModule } from 'ngx-paypal';
@@ -35,6 +36,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     NgbModule,
     AppRoutingModule,
     NgxSpinnerModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
