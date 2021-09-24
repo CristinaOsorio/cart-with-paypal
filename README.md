@@ -2,6 +2,10 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.14.
 
+## Requirements
+
+It is necessary to have a paypal account. Enter [developer.paypal](https://developer.paypal.com/), create a project and put the clientId in the clientID file of the environment variable, so that the application works.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
