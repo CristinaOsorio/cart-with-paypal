@@ -4,8 +4,7 @@
 
 export const environment = {
   production: false,
-  clientID:
-    'Afddv1hvadAEsL0ggN6ApwFn5QreaVxYA0g1okvrp3VLAl74xbwsl1ngAjoUC57n3EWk_CASMve5RwZO',
+  clientID: '',
 };
 
 /*
