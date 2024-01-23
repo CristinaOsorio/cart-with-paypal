@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  clientID: '',
+  clientID: 'YOUR_PAYPAL_CLIENT_ID_HERE',
 };
 
 /*

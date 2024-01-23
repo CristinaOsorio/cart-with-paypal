@@ -6,6 +6,20 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 It is necessary to have a paypal account. Enter [developer.paypal](https://developer.paypal.com/), create a project and put the clientId in the clientID file of the environment variable, so that the application works.
 
+
+```typescript
+// src/environments/environment.ts
+
+export const environment = {
+  production: false,
+  paypal: {
+    clientId: 'YOUR_PAYPAL_CLIENT_ID_HERE'
+  }
+};
+```
+
+Make sure to replace 'YOUR_PAYPAL_CLIENT_ID_HERE' with the actual clientID obtained from your PayPal developer account.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
